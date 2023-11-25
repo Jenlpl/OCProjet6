@@ -1,4 +1,6 @@
 import { fetchWorks } from './api.js';
+import { openModal } from './modal.js';
+
 
 document.addEventListener('DOMContentLoaded', function () {
     fetchWorks()
@@ -6,24 +8,21 @@ document.addEventListener('DOMContentLoaded', function () {
             worksData.forEach((item) => {
                 const figureElement = createFigureElement(item);
                 appendChildren(figureElement);
-                console.log(worksData);
             });
         });
 });
 
-function createFigureElement(item) {
+export function createFigureElement(item) {
     const figure = document.createElement("figure");
     const img = getImg(item.imageUrl);
     const title = getTitle(item.title);
     // TODO: Add alt attributes for images
     figure.appendChild(img);
     figure.appendChild(title);
-
-    console.log(title);
     return figure;
 }
 
-function getImg(imageUrl) {
+export function getImg(imageUrl) {
     const img = document.createElement("img");
     img.src = imageUrl;
     return img;

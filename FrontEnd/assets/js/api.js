@@ -17,14 +17,9 @@ export async function postLogin(data) {
         });
         let reponse = await rep.json();
         return reponse;
+
   
-    } catch (error) {
-     if (error.code === '400'){
-       displayMessageError(textErrorLogin, '400');
-     }
+    } catch (error) {    
         throw error;
     }
-}
-function displayMessageError(textError, errorCode) {
-    console.error('Erreur de connexion:', error.message);
 }
