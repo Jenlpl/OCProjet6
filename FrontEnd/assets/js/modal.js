@@ -33,14 +33,22 @@ window.onclick = (e) => {
     }        
 }
 
-let nouvelElement = document.createElement("img");
-let parentElement = document.getElementById("modal-gallery")
 
 function createFigureElement(item) {
     const figure = document.createElement("figure");
+    figure.classList.add("modal-figure");
     const img = getImg(item.imageUrl);
+    const trashIcon = poubelle.cloneNode(true);
+    trashIcon.classList.add('delete-icon');
+    trashIcon.addEventListener('click', () => deleteImage(item.id));
+    document.addEventListener('click', deleteImage)
+function deleteImage() {
+    document.removeChild('modal-figure')
+  }
+    console.log(deleteImage)
     // TODO: Add alt attributes for images
     figure.appendChild(img);
+    figure.appendChild(trashIcon);
     return figure;
 }
 
@@ -58,3 +66,8 @@ function appendChildren(child) {
     const works = document.querySelector("#modal-gallery");
     works.appendChild(child);
 }
+
+
+
+
+

@@ -2,7 +2,10 @@ const API_URI = `http://localhost:5678`;
 
 export function fetchWorks() {
     return fetch(`${API_URI}/api/works`)
-        .then((res) => res.json());
+        .then((res) => res.json())
+        .then((data) => {
+            return data;
+        });
 }
 
 export async function postLogin(data) {

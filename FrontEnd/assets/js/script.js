@@ -5,6 +5,7 @@ import { openModal } from './modal.js';
 document.addEventListener('DOMContentLoaded', function () {
     fetchWorks()
         .then((worksData) => {
+            console.log('Works data loaded:', worksData);
             worksData.forEach((item) => {
                 const figureElement = createFigureElement(item);
                 appendChildren(figureElement);
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 export function createFigureElement(item) {
+    console.log('Creating figure element for item:', item);
     const figure = document.createElement("figure");
     const img = getImg(item.imageUrl);
     const title = getTitle(item.title);
