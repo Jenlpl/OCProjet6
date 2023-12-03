@@ -1,11 +1,9 @@
 const API_URI = `http://localhost:5678`; 
 
 export function fetchWorks() {
-    return fetch(`${API_URI}/api/works`)
+    return fetch(`${API_URI}/api/works`, {
+    })
         .then((res) => res.json())
-        .then((data) => {
-            return data;
-        });
 }
 
 export async function postLogin(data) {
@@ -15,6 +13,7 @@ export async function postLogin(data) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Origin": `${API_URI}/api/users/login`,
             },
             body: JSON.stringify(data),
         });
@@ -26,3 +25,4 @@ export async function postLogin(data) {
         throw error;
     }
 }
+

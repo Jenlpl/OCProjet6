@@ -5,7 +5,6 @@ import { openModal } from './modal.js';
 document.addEventListener('DOMContentLoaded', function () {
     fetchWorks()
         .then((worksData) => {
-            console.log('Works data loaded:', worksData);
             worksData.forEach((item) => {
                 const figureElement = createFigureElement(item);
                 appendChildren(figureElement);
