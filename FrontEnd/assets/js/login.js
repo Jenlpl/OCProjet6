@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(event);
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-
         try {
             const dataResponse = await postLogin({ email, password });
-            console.log('Authentication successful:', dataResponse);
-            if (!dataResponse.message) {
+            console.log('Authentication successful:', dataResponse);  
+            localStorage.setItem('authenticated', 'true');
+            const blackHeader = document.querySelector('.blackheader') 
+            console.log('blackHeader:', blackHeader);
+            if (!dataResponse.message && dataResponse.token) {
                 user = dataResponse
-                console.log(user)
                 window.location.href = './index.html';
-                console.log(user)
             } else {
                 displayErrorMessage('Erreur dans l’identifiant ou le mot de passe');
             }

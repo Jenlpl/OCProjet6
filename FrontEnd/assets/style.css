@@ -295,13 +295,14 @@ display: flex;
 
 .blackheader {
 	background-color: black;
-	display: flex;
+	max-width: 1440px;
 	height: 59px;
 	color: white;
 	font-size: 16px;
 	justify-content: center;
     align-items: center;
 	gap: 10px;
+	
 }
 
 .blackheader p {
@@ -313,7 +314,6 @@ display: flex;
 .blackheader i {
 	color: white;
 	font-size: 16px;
-	font-family: 'Work Sans';
 }
 
 .modal {
@@ -395,11 +395,21 @@ font-size: 14px;
 border: none;
 }
 
-.trash-icon {
+.delete-icon {
+	width: 17px;
+	height: 17px;
     cursor: pointer;
     position: absolute;
     top: 10px; 
     right: 10px; 
     z-index: 1; 
+	background-color: black;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.delete-icon i {
 	color: white;
+	font-size: 10px;
 }

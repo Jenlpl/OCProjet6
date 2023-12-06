@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 export function createFigureElement(item) {
-    console.log('Creating figure element for item:', item);
     const figure = document.createElement("figure");
     const img = getImg(item.imageUrl);
     const title = getTitle(item.title);
@@ -64,3 +63,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const blackHeader = document.querySelector('.blackheader');
+    const isAuthenticated = localStorage.getItem('authenticated');
+
+    if (isAuthenticated === 'true' && blackHeader) {
+        blackHeader.style.display = 'flex';
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const login = document.querySelector('.login');
+    const isAuthenticated = localStorage.getItem('authenticated');
+
+    if (isAuthenticated === 'true' && login) {
+        login.textContent = 'logout';
+    }
+});
