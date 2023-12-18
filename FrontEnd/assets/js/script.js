@@ -1,82 +1,112 @@
-import { fetchWorks } from './api.js';
-import { openModal } from './modal.js';
+import { fetchWorks } from "./api.js";
+import { openModal } from "./modal.js";
+import { getIsAuthenticated } from "./session.js";
 
+//Figure element loading
 
-document.addEventListener('DOMContentLoaded', function () {
-    fetchWorks()
-        .then((worksData) => {
-            worksData.forEach((item) => {
-                const figureElement = createFigureElement(item);
-                appendChildren(figureElement);
-            });
-        });
+document.addEventListener("DOMContentLoaded", function () {
+  fetchWorks().then((worksData) => {
+    worksData.forEach((item) => {
+      const figureElement = createFigureElement(item);
+      appendChildren(figureElement);
+    });
+  });
 });
+
+//Create figure element
 
 export function createFigureElement(item) {
-    const figure = document.createElement("figure");
-    const img = getImg(item.imageUrl);
-    const title = getTitle(item.title);
-    // TODO: Add alt attributes for images
-    figure.appendChild(img);
-    figure.appendChild(title);
-    return figure;
+  const figure = document.createElement("figure");
+  figure.id = `work-${item.id}`;
+  const img = getImg(item.imageUrl);
+  const title = getTitle(item.title);
+  // TODO: Add alt attributes for images
+  figure.appendChild(img);
+  figure.appendChild(title);
+  return figure;
 }
+
+//Create image
 
 export function getImg(imageUrl) {
-    const img = document.createElement("img");
-    img.src = imageUrl;
-    return img;
+  const img = document.createElement("img");
+  img.src = imageUrl;
+  return img;
 }
+
+//Create title
 
 function getTitle(titleText) {
-    const title = document.createElement("figcaption");
-    title.textContent = titleText;
-    return title;
+  const title = document.createElement("figcaption");
+  title.textContent = titleText;
+  return title;
 }
+
+// Add child enfant à la galerie
 
 function appendChildren(child) {
-    const works = document.querySelector("#gallery");
-    works.appendChild(child);
+  const works = document.querySelector("#gallery");
+  works.appendChild(child);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    let btns = document.querySelectorAll('.button');
-    const works = document.querySelector("#gallery");
+// Gestion des boutons de filtre par catégorie
 
-    btns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            while (works.firstChild) {
-                works.removeChild(works.firstChild);
-            }
+document.addEventListener("DOMContentLoaded", function () {
+  let btns = document.querySelectorAll(".button");
+  const works = document.querySelector("#gallery");
 
-            let categorySelected = btn.dataset.category;
+  // Supprimer toutes les images
 
-            fetchWorks().then((worksData) => {
-                worksData.forEach((item) => {
-                    if (categorySelected === "0" || item.categoryId === parseInt(categorySelected)) {
-                        const figureElement = createFigureElement(item);
-                        appendChildren(figureElement);
-                    }
-                });
-            });
+  btns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      while (works.firstChild) {
+        works.removeChild(works.firstChild);
+      }
+
+//Recuperer la catégorie sélectionnée par le bouton
+
+      let categorySelected = btn.dataset.category;
+
+      fetchWorks().then((worksData) => {
+        worksData.forEach((item) => {
+          if (
+            categorySelected === "0" ||
+            item.categoryId === parseInt(categorySelected)
+          ) {
+            const figureElement = createFigureElement(item);
+            appendChildren(figureElement);
+          }
         });
+      });
     });
+  });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const blackHeader = document.querySelector('.blackheader');
-    const isAuthenticated = localStorage.getItem('authenticated');
+// Affiche le header noir si l'utilisateur est authentifié
 
-    if (isAuthenticated === 'true' && blackHeader) {
-        blackHeader.style.display = 'flex';
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  const blackHeader = document.querySelector(".blackheader");
+  const isAuthenticated = getIsAuthenticated();
+  if (isAuthenticated) {
+    blackHeader.style.display = "flex";
+  }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const login = document.querySelector('.login');
-    const isAuthenticated = localStorage.getItem('authenticated');
+// Changer le texte du bouton Login pour Logout
 
-    if (isAuthenticated === 'true' && login) {
-        login.textContent = 'logout';
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  const login = document.querySelector(".login");
+  if (getIsAuthenticated()) {
+    login.textContent = "logout";
+  }
 });
+
+// Logout button
+
+const logout = document.querySelector(".login");
+logout.addEventListener('click', logOut);
+function logOut() {
+setIsAuthenticated("");
+}
+
+
