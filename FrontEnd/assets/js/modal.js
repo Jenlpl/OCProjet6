@@ -3,6 +3,8 @@ import { getImg } from "./script.js";
 
 let modal = null;
 
+// Modal opening
+
 export const openModal = function (e) {
   e.preventDefault();
   const target = document.querySelector(e.target.getAttribute("href"));
@@ -12,6 +14,8 @@ export const openModal = function (e) {
   modal = target;
   modal.querySelector(".js-modal-close").addEventListener("click", closeModal);
 };
+  
+// Modal closing
 
 const closeModal = function (e) {
   if (modal === null) return;
@@ -35,9 +39,23 @@ window.onclick = (e) => {
   }
 };
 
-function createFigureElement(item) {
+const arrow = document.querySelector(".arrow");
+arrow.addEventListener('click', arrowReturn);
+console.log('click')
+
+function arrowReturn() {
+  if (modal1 && modal2) {
+modal2.style.display = "none";
+modal1.style.display = "flex"
+  }
+}
+
+// Create images
+
+function createFigureElement(item, index) {
   const figure = document.createElement("figure");
   figure.classList.add("modal-figure");
+  figure.id = index;  
   const deleteDiv = document.createElement("div");
   deleteDiv.classList.add("delete-icon");
   const trashIcon = document.createElement("i");
@@ -47,11 +65,9 @@ function createFigureElement(item) {
   const img = getImg(item.imageUrl);
   function deleteImage() {
     trashIcon.closest(".modal-figure").remove();
-    console.log(trashIcon);
-    const id = figure.id;
-    fetchDelete(5).then((worksData) => {
-      console.log("id")
-      
+
+    fetchDelete(item.id).then((worksData) => {
+      console.log(worksData)
     });
   }
   // TODO: Add alt attributes for images
@@ -62,8 +78,9 @@ function createFigureElement(item) {
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchWorks().then((worksData) => {
-    worksData.forEach((item) => {
-      const figureElement = createFigureElement(item);
+    worksData.forEach((item, index) => {
+      const figureElement = createFigureElement(item, index + 1);
+      console.log(figureElement)
       appendChildren(figureElement);
     });
   });
@@ -95,7 +112,7 @@ document
   .querySelector(".add-photo-main")
   .addEventListener("click", switchModals);
 
-  //FormData
+  // FormData
 
   const form = document.querySelector('.send-file-form');
   form.addEventListener('submit', (e) => {

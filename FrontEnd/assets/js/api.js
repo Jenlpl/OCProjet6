@@ -7,6 +7,10 @@ export function fetchWorks() {
     return fetch(`${API_URI}/api/works`, {
     })
         .then((res) => res.json())
+        .then((data) => {
+            console.log("fetchWorks", data);
+            return data;
+        })
 }
 
 export async function postLogin(data) {
@@ -34,8 +38,7 @@ export function fetchDelete(id) {
         headers: {Authorization: `Bearer ${getToken()}`}
     })
         .then((res) =>
-        res.json());
-        
+        res.json());       
 }
 
 

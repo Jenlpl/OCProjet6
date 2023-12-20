@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
         works.removeChild(works.firstChild);
       }
 
-//Recuperer la catégorie sélectionnée par le bouton
 
       let categorySelected = btn.dataset.category;
 
@@ -90,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (isAuthenticated) {
     blackHeader.style.display = "flex";
   }
+  console.log(isAuthenticated)
 });
 
 // Changer le texte du bouton Login pour Logout

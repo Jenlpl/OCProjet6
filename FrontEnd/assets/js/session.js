@@ -1,8 +1,9 @@
 export function getIsAuthenticated() {
-    const isAuthenticated = sessionStorage.getItem('token') != "" && sessionStorage.getItem('token') != null ;
-    return isAuthenticated === 'true';
-    console.log(getIsAuthenticated)
-}
+    const token = sessionStorage.getItem('token');
+    const isAuthenticated = token !== "" && token !== null;
+    return isAuthenticated;
+  }
+  
 
 export function getToken() {
     const token = sessionStorage.getItem('token');
