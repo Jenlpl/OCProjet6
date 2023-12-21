@@ -1,5 +1,6 @@
-import { fetchWorks, fetchDelete } from "./api.js";
+import { fetchWorks, fetchDelete, addWork } from "./api.js";
 import { getImg } from "./script.js";
+
 
 let modal = null;
 
@@ -39,11 +40,15 @@ window.onclick = (e) => {
   }
 };
 
+// Returt arrow
+
 const arrow = document.querySelector(".arrow");
 arrow.addEventListener('click', arrowReturn);
 console.log('click')
 
 function arrowReturn() {
+  const modal1 = document.querySelector("#modal1");
+  const modal2 = document.querySelector("#modal2");
   if (modal1 && modal2) {
 modal2.style.display = "none";
 modal1.style.display = "flex"
@@ -61,9 +66,12 @@ function createFigureElement(item, index) {
   const trashIcon = document.createElement("i");
   trashIcon.classList.add("fa-regular", "fa-trash-can");
   deleteDiv.appendChild(trashIcon);
+  
   trashIcon.addEventListener("click", deleteImage);
   const img = getImg(item.imageUrl);
+
   function deleteImage() {
+   
     trashIcon.closest(".modal-figure").remove();
 
     fetchDelete(item.id).then((worksData) => {
@@ -116,25 +124,20 @@ document
 
   const form = document.querySelector('.send-file-form');
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    
-    for(const item of formData.entries()) {
-      console.log(item[0], item[1]);
-    };
-
-    const chargeUtile = JSON.stringify(formData.item);
+      e.preventDefault();
   
-
-    
-   function postWork() { fetch('http://localhost:5678/api/works', {
-      method: 'POST',
-      headers: {
-        "Content-type" : "application/json"},
-      body: JSON.stringify(sendWork),
+      const formData = new FormData(form);
+      
+      const formObject = {};
+      for (const [key, value] of formData.entries()) {
+          formObject[key] = value;
+      }
   
-  })}});
+      // Convert the JavaScript object to JSON
+
+      const jsonData = JSON.stringify(formObject); 
+      console.log(jsonData);
+  });
 
 
  

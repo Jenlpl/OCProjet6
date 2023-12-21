@@ -1,8 +1,12 @@
 import { fetchWorks } from "./api.js";
-import { openModal } from "./modal.js";
 import { getIsAuthenticated } from "./session.js";
+import { logOut } from "./session.js";
+import { openModal } from "./modal.js";
 
-//Figure element loading
+const logout = document.querySelector(".login");
+logout.addEventListener('click', logOut);
+
+// Figure element loading
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchWorks().then((worksData) => {
@@ -13,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//Create figure element
+// Create figure element
 
 export function createFigureElement(item) {
   const figure = document.createElement("figure");
@@ -55,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let btns = document.querySelectorAll(".button");
   const works = document.querySelector("#gallery");
 
-  // Supprimer toutes les images
+  // Remove all works
 
   btns.forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -81,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Affiche le header noir si l'utilisateur est authentifié
+// Show black header
 
 document.addEventListener("DOMContentLoaded", function () {
   const blackHeader = document.querySelector(".blackheader");
@@ -92,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log(isAuthenticated)
 });
 
-// Changer le texte du bouton Login pour Logout
+// Change text Login -> Logout
 
 document.addEventListener("DOMContentLoaded", function () {
   const login = document.querySelector(".login");
@@ -101,12 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Logout button
 
-const logout = document.querySelector(".login");
-logout.addEventListener('click', logOut);
-function logOut() {
-setIsAuthenticated("");
-}
 
 

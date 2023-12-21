@@ -13,3 +13,10 @@ export function getToken() {
 export function setIsAuthenticated(token) {
    sessionStorage.setItem('token', token);
 }
+
+// Logout button
+
+
+export function logOut() {
+setIsAuthenticated("");
+}

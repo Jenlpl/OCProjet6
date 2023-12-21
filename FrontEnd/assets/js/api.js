@@ -19,8 +19,7 @@ export async function postLogin(data) {
         const rep = await fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                "Origin": `${API_URI}/api/users/login`,
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(data),
         });
@@ -42,3 +41,20 @@ export function fetchDelete(id) {
 }
 
 
+
+export function addWork(data) {
+    return fetch(`${API_URI}/api/works`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then((res) =>
+        res.json())    
+        .catch((error) => {
+            console.error("Error in addWork:", error);
+            throw error; 
+        });   
+}
