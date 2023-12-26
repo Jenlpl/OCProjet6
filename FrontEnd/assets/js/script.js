@@ -1,7 +1,9 @@
-import { fetchWorks } from "./api.js";
+import { addWork, fetchWorks } from "./api.js";
 import { getIsAuthenticated } from "./session.js";
 import { logOut } from "./session.js";
 import { openModal } from "./modal.js";
+import { submitForm } from "./modal.js";
+
 
 const logout = document.querySelector(".login");
 logout.addEventListener('click', logOut);
@@ -104,6 +106,34 @@ document.addEventListener("DOMContentLoaded", function () {
     login.textContent = "logout";
   }
 });
+
+
+submitForm.addEventListener("submit", function (e) {
+  e.preventDefault(); 
+
+  let category = document.getElementById('category').value;
+  console.log(category);
+  let title = document.getElementById('title').value;
+  console.log(title);
+  let file = document.getElementById('file-upload').value;
+  const formObject = {
+    category: category,
+    title: title,
+    image: file
+  }
+  addWork(formObject).then((worksData) => {
+      console.log(formObject); 
+
+      worksData.forEach((item) => {
+          const figureElement = createFigureElementForFile(item);
+          appendChildren(figureElement);
+      });
+  });
+});
+
+
+
+
 
 
 

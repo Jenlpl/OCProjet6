@@ -17,6 +17,7 @@
       crossorigin="anonymous"
     ></script>
     <script defer src="./assets/js/script.js" type="module"></script>
+    <script defer src="./assets/js/modal.js" type="module"></script>
   </head>
   <body>
     <div class="blackheader" style="display: none">
@@ -104,7 +105,7 @@
                   </button>
                 </div>
                 <h1 class="titlemodal">Ajout photo</h1>
-                <form class="send-file-form" method="post">
+                <form action="" class="send-file-form" method="post" enctype="multipart/form-data">
                   <div class="add-photo">
                     <i class="fa-regular fa-image"></i>
                     <label for="file-upload" class="custom-file-upload">
@@ -131,10 +132,10 @@
                         id="category"
                         name="category"
                       >
-                        <option value="free" selected></option>
-                        <option value="objets">Objets</option>
-                        <option value="appartements">Appartements</option>
-                        <option value="hotels-resteaurants">
+                        <option value="0" selected></option>
+                        <option value="1">Objets</option>
+                        <option value="2">Appartements</option>
+                        <option value="3">
                           Hôtels & restaurants
                         </option>
                       </select>

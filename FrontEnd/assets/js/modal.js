@@ -2,6 +2,7 @@ import { fetchWorks, fetchDelete, addWork } from "./api.js";
 import { getImg } from "./script.js";
 
 
+
 let modal = null;
 
 // Modal opening
@@ -67,6 +68,8 @@ function createFigureElement(item, index) {
   trashIcon.classList.add("fa-regular", "fa-trash-can");
   deleteDiv.appendChild(trashIcon);
   
+// Delete images
+
   trashIcon.addEventListener("click", deleteImage);
   const img = getImg(item.imageUrl);
 
@@ -74,6 +77,7 @@ function createFigureElement(item, index) {
    
     trashIcon.closest(".modal-figure").remove();
 
+    //comment this
     fetchDelete(item.id).then((worksData) => {
       console.log(worksData)
     });
@@ -122,21 +126,30 @@ document
 
   // FormData
 
-  const form = document.querySelector('.send-file-form');
-  form.addEventListener('submit', (e) => {
+  export const submitForm = document.querySelector('.send-file-form');
+
+  submitForm.addEventListener('submit', (e) => {
       e.preventDefault();
-  
-      const formData = new FormData(form);
+      /*const formData = new FormData(submitForm);
       
       const formObject = {};
       for (const [key, value] of formData.entries()) {
           formObject[key] = value;
-      }
-  
-      // Convert the JavaScript object to JSON
-
-      const jsonData = JSON.stringify(formObject); 
-      console.log(jsonData);
+      }*/
+      let category = document.getElementById('category').value;
+        console.log(category);
+        let title = document.getElementById('title').value;
+        console.log(title);
+        let file = document.getElementById('file-upload').value;
+        const formObject = {
+          category: category,
+          title: title,
+          image: file
+        }
+ 
+      /*const jsonData = JSON.stringify(formObject); 
+      console.log(jsonData);*/
+      addWork(formObject);
   });
 
 
