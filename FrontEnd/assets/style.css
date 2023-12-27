@@ -518,6 +518,17 @@ display: flex;
 flex-direction: column;
 }
 
+.img-preview {
+  width: 129px;
+  height: 169px;
+  display: none;
+  position: fixed;
+}
+
+.img-preview img {
+  width: 129px;
+  object-fit: cover;
+}
 
 .add-photo {
   width: 420px;

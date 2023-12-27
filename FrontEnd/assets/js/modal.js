@@ -139,6 +139,38 @@ document
     addWork(formData);
 });
 
+// Image preview
+
+const fileInput = document.getElementById("file-upload"); // Make sure to adjust the ID based on your HTML structure
+fileInput.addEventListener("change", handleFileInputChange);
+
+
+function handleFileInputChange() {
+  const previewDiv = document.querySelector(".img-preview");
+  const fileButton = document.querySelector(".custom-file-upload");
+  const file = fileInput.files[0];
+  console.log('fileupload')
+
+  if (file) {
+    // Create a FileReader to read the file
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      // Set the source of the preview image to the data URL
+      previewDiv.innerHTML = `<img src="${e.target.result}" alt="Preview" />`;
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+    previewDiv.style.display = 'flex';
+    fileButton.style.display = 'none';
+
+
+  } else {
+    // Clear the preview if no file is selected
+    previewDiv.innerHTML = "";
+  }
+}
 
  
 
