@@ -50,9 +50,18 @@ console.log('click')
 function arrowReturn() {
   const modal1 = document.querySelector("#modal1");
   const modal2 = document.querySelector("#modal2");
+
   if (modal1 && modal2) {
 modal2.style.display = "none";
-modal1.style.display = "flex"
+modal1.style.display = "flex";
+
+modal = modal1;
+modal2
+      .querySelector(".js-modal-close")
+      .removeEventListener("click", closeModal);
+      modal1
+      .querySelector(".js-modal-close")
+      .addEventListener("click", closeModal);
   }
 }
 
@@ -68,7 +77,7 @@ function createFigureElement(item, index) {
   trashIcon.classList.add("fa-regular", "fa-trash-can");
   deleteDiv.appendChild(trashIcon);
   
-// Delete images
+// Delete image
 
   trashIcon.addEventListener("click", deleteImage);
   const img = getImg(item.imageUrl);
@@ -77,12 +86,11 @@ function createFigureElement(item, index) {
    
     trashIcon.closest(".modal-figure").remove();
 
-    //comment this
     fetchDelete(item.id).then((worksData) => {
       console.log(worksData)
     });
   }
-  // TODO: Add alt attributes for images
+  img.alt = item.title;
   figure.appendChild(img);
   figure.appendChild(deleteDiv);
   return figure;
@@ -129,28 +137,10 @@ document
   export const submitForm = document.querySelector('.send-file-form');
 
   submitForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      /*const formData = new FormData(submitForm);
-      
-      const formObject = {};
-      for (const [key, value] of formData.entries()) {
-          formObject[key] = value;
-      }*/
-      let category = document.getElementById('category').value;
-        console.log(category);
-        let title = document.getElementById('title').value;
-        console.log(title);
-        let file = document.getElementById('file-upload').value;
-        const formObject = {
-          category: category,
-          title: title,
-          image: file
-        }
- 
-      /*const jsonData = JSON.stringify(formObject); 
-      console.log(jsonData);*/
-      addWork(formObject);
-  });
+    e.preventDefault();
+    const formData = new FormData(submitForm);
+    addWork(formData);
+});
 
 
  

@@ -10,12 +10,13 @@ export function getToken() {
     return token;
 }
 
+// Save token
+
 export function setIsAuthenticated(token) {
    sessionStorage.setItem('token', token);
 }
 
 // Logout button
-
 
 export function logOut() {
 setIsAuthenticated("");

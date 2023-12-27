@@ -1,12 +1,9 @@
-import { addWork, fetchWorks } from "./api.js";
-import { getIsAuthenticated } from "./session.js";
-import { logOut } from "./session.js";
-import { openModal } from "./modal.js";
-import { submitForm } from "./modal.js";
+import { fetchWorks } from "./api.js";
+import { getIsAuthenticated, logOut } from "./session.js";
 
 
-const logout = document.querySelector(".login");
-logout.addEventListener('click', logOut);
+const loginButton = document.querySelector(".login");
+loginButton.addEventListener('click', logOut);
 
 // Figure element loading
 
@@ -26,7 +23,7 @@ export function createFigureElement(item) {
   figure.id = `work-${item.id}`;
   const img = getImg(item.imageUrl);
   const title = getTitle(item.title);
-  // TODO: Add alt attributes for images
+  img.alt = item.title;
   figure.appendChild(img);
   figure.appendChild(title);
   return figure;
@@ -61,19 +58,24 @@ document.addEventListener("DOMContentLoaded", function () {
   let btns = document.querySelectorAll(".button");
   const works = document.querySelector("#gallery");
 
-  // Remove all works
+  // Remove all works when a category filter button is clicked
 
   btns.forEach(function (btn) {
     btn.addEventListener("click", function () {
+      // Remove existing works from the "works" element
       while (works.firstChild) {
         works.removeChild(works.firstChild);
       }
 
-
+ // Get the selected category from the clicked button's data attribute
       let categorySelected = btn.dataset.category;
 
       fetchWorks().then((worksData) => {
+        // Iterate through each work item in the fetched data
         worksData.forEach((item) => {
+
+          // Check if the selected category is "0" (all categories)
+        // or if the work item's categoryId matches the selected category
           if (
             categorySelected === "0" ||
             item.categoryId === parseInt(categorySelected)
@@ -87,13 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Show black header
+// Show black header + hiding category buttons
 
 document.addEventListener("DOMContentLoaded", function () {
+  const filtreButtons = document.querySelector(".filtre");
   const blackHeader = document.querySelector(".blackheader");
   const isAuthenticated = getIsAuthenticated();
   if (isAuthenticated) {
     blackHeader.style.display = "flex";
+    filtreButtons.style.visibility = "hidden";
   }
   console.log(isAuthenticated)
 });
@@ -106,31 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
     login.textContent = "logout";
   }
 });
-
-
-submitForm.addEventListener("submit", function (e) {
-  e.preventDefault(); 
-
-  let category = document.getElementById('category').value;
-  console.log(category);
-  let title = document.getElementById('title').value;
-  console.log(title);
-  let file = document.getElementById('file-upload').value;
-  const formObject = {
-    category: category,
-    title: title,
-    image: file
-  }
-  addWork(formObject).then((worksData) => {
-      console.log(formObject); 
-
-      worksData.forEach((item) => {
-          const figureElement = createFigureElementForFile(item);
-          appendChildren(figureElement);
-      });
-  });
-});
-
 
 
 

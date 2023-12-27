@@ -2,6 +2,7 @@ import {getToken} from "./session.js";
 
 const API_URI = `http://localhost:5678`; 
 
+// Get works
 
 export function fetchWorks() {
     return fetch(`${API_URI}/api/works`, {
@@ -12,6 +13,9 @@ export function fetchWorks() {
             return data;
         })
 }
+
+
+// Login
 
 export async function postLogin(data) {
     const url = `${API_URI}/api/users/login`;
@@ -30,6 +34,7 @@ export async function postLogin(data) {
     }
 }
 
+// Delete
 
 export function fetchDelete(id) {
     return fetch(`${API_URI}/api/works/${id}`, {
@@ -41,15 +46,15 @@ export function fetchDelete(id) {
 }
 
 
+// Add new work
 
 export function addWork(data) {
     return fetch(`${API_URI}/api/works`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${getToken()}`
         },
-        body: JSON.stringify(data)
+        body: data
     })
         .then((res) =>
         res.json())    
