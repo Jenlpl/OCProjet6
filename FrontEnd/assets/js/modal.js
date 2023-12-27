@@ -45,7 +45,6 @@ window.onclick = (e) => {
 
 const arrow = document.querySelector(".arrow");
 arrow.addEventListener('click', arrowReturn);
-console.log('click')
 
 function arrowReturn() {
   const modal1 = document.querySelector("#modal1");
@@ -87,7 +86,6 @@ function createFigureElement(item, index) {
     trashIcon.closest(".modal-figure").remove();
 
     fetchDelete(item.id).then((worksData) => {
-      console.log(worksData)
     });
   }
   img.alt = item.title;
@@ -100,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchWorks().then((worksData) => {
     worksData.forEach((item, index) => {
       const figureElement = createFigureElement(item, index + 1);
-      console.log(figureElement)
       appendChildren(figureElement);
     });
   });

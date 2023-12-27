@@ -7,17 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelector(".formlogin")
     .addEventListener("submit", async function (event) {
       event.preventDefault();
-      console.log(event);
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       try {
         const dataResponse = await postLogin({ email, password });
-        console.log("Authentication successful:", dataResponse);
       
         if (!dataResponse.message && dataResponse.token) {
           user = dataResponse;
           setIsAuthenticated(user.token);
-          console.log(user.token)
           window.location.href = "./index.html";
         } else {
           displayErrorMessage("Erreur dans l’identifiant ou le mot de passe");

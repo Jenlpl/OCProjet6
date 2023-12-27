@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
     blackHeader.style.display = "flex";
     filtreButtons.style.visibility = "hidden";
   }
-  console.log(isAuthenticated)
 });
 
 // Change text Login -> Logout

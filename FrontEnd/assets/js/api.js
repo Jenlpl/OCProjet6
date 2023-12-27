@@ -9,7 +9,6 @@ export function fetchWorks() {
     })
         .then((res) => res.json())
         .then((data) => {
-            console.log("fetchWorks", data);
             return data;
         })
 }
