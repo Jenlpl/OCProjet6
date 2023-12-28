@@ -89,15 +89,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Show black header + hiding category buttons
+// Show black header + hiding category buttons + hiding button "modifier"
 
 document.addEventListener("DOMContentLoaded", function () {
   const filtreButtons = document.querySelector(".filtre");
   const blackHeader = document.querySelector(".blackheader");
+  const buttonModifier = document.querySelector(".icon-modifier")
   const isAuthenticated = getIsAuthenticated();
   if (isAuthenticated) {
     blackHeader.style.display = "flex";
     filtreButtons.style.visibility = "hidden";
+    buttonModifier.style.display = "flex";
   }
 });
 

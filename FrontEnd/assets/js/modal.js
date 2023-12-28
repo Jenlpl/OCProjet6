@@ -141,7 +141,7 @@ document
 
 // Image preview
 
-const fileInput = document.getElementById("file-upload"); // Make sure to adjust the ID based on your HTML structure
+const fileInput = document.getElementById("file-upload"); 
 fileInput.addEventListener("change", handleFileInputChange);
 
 
