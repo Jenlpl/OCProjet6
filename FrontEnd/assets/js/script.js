@@ -2,6 +2,7 @@ import { fetchWorks } from "./api.js";
 import { getIsAuthenticated, logOut } from "./session.js";
 
 
+
 const loginButton = document.querySelector(".login");
 loginButton.addEventListener('click', logOut);
 
