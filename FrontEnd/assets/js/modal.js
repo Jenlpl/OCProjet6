@@ -31,10 +31,12 @@ const closeModal = function (e) {
   modal = null;
 };
 
+// Adding click event listeners to all elements with class "js-modal"
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
+// Closing modal when clicking outside of it
 window.onclick = (e) => {
   if (e.target == modal) {
     modal.style.display = "none";
@@ -64,7 +66,7 @@ modal2
   }
 }
 
-// Create images
+// Create figure element for each work
 
 function createFigureElement(item, index) {
   const figure = document.createElement("figure");
@@ -77,23 +79,26 @@ function createFigureElement(item, index) {
   deleteDiv.appendChild(trashIcon);
   
 // Delete image
-
   trashIcon.addEventListener("click", deleteImage);
+
+   // Creating image element using external function getImg
   const img = getImg(item.imageUrl);
 
+  // Function to delete the image
   function deleteImage() {
-   
     trashIcon.closest(".modal-figure").remove();
-
     fetchDelete(item.id).then((worksData) => {
     });
   }
+
+  // Set alt attribute and append image and delete icon to figure element
   img.alt = item.title;
   figure.appendChild(img);
   figure.appendChild(deleteDiv);
   return figure;
 }
 
+// Event listener for loading works data and creating figure elements on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function () {
   fetchWorks().then((worksData) => {
     worksData.forEach((item, index) => {
@@ -103,11 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Function to append child element to the works container
 function appendChildren(child) {
   const works = document.querySelector("#modal-gallery");
   works.appendChild(child);
 }
 
+// Function to switch between modal views
 function switchModals() {
   const modal1 = document.querySelector("#modal1");
   const modal2 = document.querySelector("#modal2");
@@ -125,6 +132,7 @@ function switchModals() {
   }
 }
 
+// Event listener for switching modals when adding a photo
 document
   .querySelector(".add-photo-main")
   .addEventListener("click", switchModals);
@@ -144,14 +152,12 @@ document
 
   const allowedExtensions = ['jpg', 'png'];
 
-
+// Validation checks for form fields
   if (fileUpload.value === '' || fileTitle.value === '' || fileCategory.value == 0) {
     console.log('Conditions not met!');
     errorUpload.innerText = 'Tous les champs doivent être remplis';
     errorUpload.style.textDecoration = 'underline';
     errorUpload.style.textAlign = 'center';
-
-   // updateValiderButtonColor();
 
     setTimeout(() => {
       errorUpload.innerText = '';  // Remove the text
@@ -162,11 +168,12 @@ document
     const fileName = fileUpload.files[0].name.toLowerCase();
     const fileExtension = fileName.split('.').pop();
 
+     // File extension check
    if (!allowedExtensions.includes(fileExtension)) {
     errorUpload.innerText = 'Le type de fichier doit être JPG ou PNG.';
             errorUpload.style.textDecoration = 'underline';
             errorUpload.style.textAlign = 'center';
-    //updateValiderButtonColor();
+            updateValiderButtonColor();
     return;
   }
 
@@ -235,6 +242,18 @@ function updateValiderButtonColor() {
   const validerButton = document.querySelector('.valider-button');
 
   const allFieldsFilled = fileUpload.value !== '' && fileTitle.value !== '' && fileCategory.value > 0;
-  validerButton.style.backgroundColor = allFieldsFilled ? '#1D6154' : '#A7A7A7';
+  const validFileExtension = isValidFileExtension(fileUpload.value);
+
+  if (allFieldsFilled && validFileExtension) {
+    validerButton.style.backgroundColor = '#1D6154';
+  } else {
+    validerButton.style.backgroundColor = '#A7A7A7';
+  }
 }
 
+// Function to check the file extension
+function isValidFileExtension(fileName) {
+  const allowedExtensions = ['jpg', 'jpeg', 'png'];
+  const fileExtension = fileName.split('.').pop().toLowerCase();
+  return allowedExtensions.includes(fileExtension);
+}

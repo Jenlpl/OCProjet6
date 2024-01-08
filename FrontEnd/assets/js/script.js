@@ -1,7 +1,7 @@
 import { fetchWorks } from "./api.js";
 import { getIsAuthenticated, logOut } from "./session.js";
 
-
+// Handling logout when the login button is clicked
 
 const loginButton = document.querySelector(".login");
 loginButton.addEventListener('click', logOut);
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Show black header + hiding category buttons + hiding button "modifier"
+// Show black header + hiding category buttons and button "modifier"
 
 document.addEventListener("DOMContentLoaded", function () {
   const filtreButtons = document.querySelector(".filtre");
