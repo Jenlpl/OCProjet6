@@ -35,14 +35,25 @@ export async function postLogin(data) {
 
 // Delete
 
+
 export function fetchDelete(id) {
     return fetch(`${API_URI}/api/works/${id}`, {
         method: "DELETE",
-        headers: {Authorization: `Bearer ${getToken()}`}
+        headers: { Authorization: `Bearer ${getToken()}` }
     })
-        .then((res) =>
-        res.json());       
+        .then((res) => {
+            if (res.ok) {
+                return { success: true };
+            } else {
+                return { success: false, status: res.status };
+            }
+        })
+        .catch((error) => {
+            console.error("Error in fetchDelete:", error);
+            throw error;
+        });
 }
+
 
 
 // Add new work

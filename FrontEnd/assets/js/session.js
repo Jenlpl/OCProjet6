@@ -8,7 +8,7 @@ export function getIsAuthenticated() {
     return isAuthenticated;
   }
   
-// Fonction pour récupérer le jeton d'authentification
+// Fonction pour récupérer le toke d'authentification
 export function getToken() {
     const token = sessionStorage.getItem('token');
     return token;

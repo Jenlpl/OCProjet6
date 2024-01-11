@@ -68,6 +68,17 @@ document.addEventListener("DOMContentLoaded", function () {
         works.removeChild(works.firstChild);
       }
 
+
+// Remove the active class from all buttons
+btns.forEach(function (btn) {
+  btn.classList.remove("active");
+});
+
+// Add the active class to the clicked button
+btn.classList.add("active");
+
+
+
  // Get the selected category from the clicked button's data attribute
       let categorySelected = btn.dataset.category;
 
