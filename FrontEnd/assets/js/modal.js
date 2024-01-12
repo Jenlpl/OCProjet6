@@ -94,7 +94,6 @@ function createFigureElement(item, index) {
       .then((worksData) => {
         if (worksData) {
           closeModal(); 
-          location.reload(); 
         }
       })
       .catch((error) => {
@@ -196,14 +195,19 @@ submitForm.addEventListener("submit", (e) => {
     console.log("Conditions met!");
     const formData = new FormData(submitForm);
 
+    // Add new work
+
     addWork(formData).then(() => {
-      closeModal();  // Close the modal after adding the new work
-      window.location.reload();  // Reload the page
+      closeModal();  
+     fetchWorks();
     });
 
     updateValiderButtonColor();
   }
 });
+
+
+
 
 // Image preview
 
