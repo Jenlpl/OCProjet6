@@ -8,18 +8,18 @@ loginButton.addEventListener('click', logOut);
 
 // Figure element loading
 
-document.addEventListener("DOMContentLoaded", function () {
+
   fetchWorks().then((worksData) => {
     worksData.forEach((item) => {
-      const figureElement = createFigureElement(item);
-      appendChildren(figureElement);
+      const figureElement = createFigureElements(item);
+      appendChildrens(figureElement);
     });
   });
-});
+
 
 // Create figure element
 
-export function createFigureElement(item) {
+ export function createFigureElements(item) {
   const figure = document.createElement("figure");
   figure.id = `work-${item.id}`;
   const img = getImg(item.imageUrl);
@@ -48,7 +48,7 @@ function getTitle(titleText) {
 
 // Add child enfant à la galerie
 
-function appendChildren(child) {
+export function appendChildrens(child) {
   const works = document.querySelector("#gallery");
   works.appendChild(child);
 }
@@ -92,8 +92,8 @@ btn.classList.add("active");
             categorySelected === "0" ||
             item.categoryId === parseInt(categorySelected)
           ) {
-            const figureElement = createFigureElement(item);
-            appendChildren(figureElement);
+            const figureElement = createFigureElements(item);
+            appendChildrens(figureElement);
           }
         });
       });
@@ -123,10 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
     login.textContent = "logout";
   }
 });
-
-
-
-
 
 
 

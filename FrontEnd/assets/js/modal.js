@@ -1,5 +1,5 @@
 import { fetchWorks, fetchDelete, addWork } from "./api.js";
-import { getImg } from "./script.js";
+import { getImg, createFigureElements, appendChildrens } from "./script.js";
 
 let modal = null;
 
@@ -87,20 +87,36 @@ function createFigureElement(item, index) {
 
   // Function to delete the image
   
+
   function deleteImage() {
+    function regen(containerId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = "";
+      }
+    }
     trashIcon.closest(".modal-figure").remove();
 
     fetchDelete(item.id)
       .then((worksData) => {
-        if (worksData) {
-          closeModal(); 
-        }
+        regen("gallery");
+        regen("modal-gallery");
+        fetchWorks().then((worksData) => {
+          worksData.forEach((item) => {
+            const figureElement = createFigureElements(item);
+            appendChildrens(figureElement);
+          });
+          worksData.forEach((item, index) => {
+            const figureElement = createFigureElement(item, index + 1);
+            appendChildren(figureElement);
+          });
+          closeModal();
+        });
       })
       .catch((error) => {
         console.error("Error deleting work:", error);
       });
   }
-  
 
 
 
@@ -197,15 +213,32 @@ submitForm.addEventListener("submit", (e) => {
 
     // Add new work
 
+    function regen(containerId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = "";
+      }
+    }
+
     addWork(formData).then(() => {
       closeModal();  
-     fetchWorks();
+      regen("gallery");
+      regen("modal-gallery");
+      fetchWorks().then((worksData) => {
+        worksData.forEach((item) => {
+          const figureElement = createFigureElements(item);
+          appendChildrens(figureElement);
+        });
+        worksData.forEach((item, index) => {
+          const figureElement = createFigureElement(item, index + 1);
+          appendChildren(figureElement);
+        });
+      });
     });
 
     updateValiderButtonColor();
   }
 });
-
 
 
 
